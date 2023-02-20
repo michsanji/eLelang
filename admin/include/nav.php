@@ -26,10 +26,6 @@
                 <li class="nav-item">
                     <a href="laporan.php" class="nav-link">Laporan</a>
                 </li>
-                <!-- MENU KHUSUS PETUGAS -->
-                <li class="nav-item">
-                    <a href="laporan.php" class="nav-link">Aktivasi Lelang</a>
-                </li>
             </ul>
 
         <!-- Right navbar links -->
