@@ -9,7 +9,7 @@ include 'include/nav.php';
         <div class="container">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Pendataan Barang</h1>
+                    <h1 class="m-0">Laporan Data Lelang Barang</h1>
                 </div>
             </div>
         </div>
@@ -26,9 +26,9 @@ include 'include/nav.php';
                             <div class="card-tools">
                                 <div class="input-group input-group-sm" style="width: 170px;">
                                     <div class="input-group-append">
-                                        <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#modal-tambah-barang">
-                                            <i class="fas fa-plus"></i> Tambah Data Barang
-                                        </button>
+                                        <a href="print.php" class="btn btn-primary" target="_blank">
+                                            <i class="fas fa-print"> Print Laporan</i>
+                                        </a>
                                     </div>
                                 </div>
                             </div>
@@ -39,10 +39,10 @@ include 'include/nav.php';
                                     <tr>
                                         <th>#</th>
                                         <th>Nama Barang</th>
-                                        <th>Tanggal Barang</th>
-                                        <th>Harga Barang</th>
-                                        <th>Deskripsi Barang</th>
-                                        <th>Aksi</th>
+                                        <th>Tanggal Lelang</th>
+                                        <th>Harga Akhir</th>
+                                        <th>Pemenang Lelang</th>
+                                        <th>Petugas Lelang</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -51,15 +51,8 @@ include 'include/nav.php';
                                         <td>Nama Barang</td>
                                         <td>11-7-2022</td>
                                         <td>Rp. 350.000</td>
-                                        <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                                        <td>
-                                            <button type="submit" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modal-ubah-barang">
-                                                <i class="fas fa-edit"></i> Edit
-                                            </button>
-                                            <button type="submit" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modal-hapus-barang">
-                                                <i class="fas fa-trash"></i> Hapus
-                                            </button>
-                                        </td>
+                                        <td>Nama Pemenang</td>
+                                        <td>Nama Petugas</td>
                                     </tr>
                                 </tbody>
                             </table>
