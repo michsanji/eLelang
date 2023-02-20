@@ -10,13 +10,25 @@
         </button>
 
         <div class="collapse navbar-collapse order-3" id="navbarCollapse">
-            <!-- Left navbar links -->
             <ul class="navbar-nav">
                 <li class="nav-item">
                     <a href="index.php" class="nav-link">Home</a>
                 </li>
+                <!-- MENU KHUSUS ADMIN DAN PETUGAS -->
                 <li class="nav-item">
-                    <a href="penawaran.php" class="nav-link">Penawaran</a>
+                    <a href="barang.php" class="nav-link">Pendataan Barang</a>
+                </li>
+                <!-- MENU KHUSUS ADMIN -->
+                <li class="nav-item">
+                    <a href="petugas.php" class="nav-link">Data Petugas</a>
+                </li>
+                <!-- MENU KHUSUS ADMIN DAN PETUGAS -->
+                <li class="nav-item">
+                    <a href="laporan.php" class="nav-link">Laporan</a>
+                </li>
+                <!-- MENU KHUSUS PETUGAS -->
+                <li class="nav-item">
+                    <a href="laporan.php" class="nav-link">Aktivasi Lelang</a>
                 </li>
             </ul>
 
