@@ -1,6 +1,6 @@
 <nav class="main-header navbar navbar-expand-md navbar-light navbar-white">
     <div class="container">
-        <a href="../assets/index3.html" class="navbar-brand">
+        <a href="#" class="navbar-brand">
             <img src="../assets/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
             <span class="brand-text font-weight-light">My <b>eLelang</b></span>
         </a>
@@ -27,6 +27,7 @@
                     <a href="laporan.php" class="nav-link">Laporan</a>
                 </li>
             </ul>
+        </div>
 
         <!-- Right navbar links -->
         <ul class="order-1 order-md-3 navbar-nav navbar-no-expand ml-auto">

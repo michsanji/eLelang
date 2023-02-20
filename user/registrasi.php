@@ -24,7 +24,7 @@
     <div class="card-body register-card-body">
       <p class="login-box-msg">Silakan lengkapi data dibawah ini</p>
 
-      <form action="../assets/index.php" method="post">
+      <form action="proses_daftar.php" method="post">
         <div class="input-group mb-3">
           <input type="text" name="nama_lengkap" class="form-control" placeholder="Nama Lengkap">
           <div class="input-group-append">

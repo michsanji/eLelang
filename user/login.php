@@ -37,15 +37,20 @@
           <?php } elseif ($_GET['info'] == "logout") { ?>
             <div class="alert alert-success alert-dismissible">
               <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-              <h5><i class="icon fas fa-exclamation-triangle"></i>Terimakasih</h5>
+              <h5><i class="icon fas fa-exclamation-triangle"></i>Terima Kasih</h5>
               Anda telah berhasil logout
             </div>
-          <?php }
-            if ($_GET['info'] == "login") { ?>
+          <?php } elseif ($_GET['info'] == "login") { ?>
             <div class="alert alert-info alert-dismissible">
               <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
               <h5><i class="icon fas fa-exclamation-triangle"></i>Mohon Maaf</h5>
               Anda harus login terlebih dahulu
+            </div>
+            <?php } elseif ($_GET['info'] == "daftar") { ?>
+            <div class="alert alert-success alert-dismissible">
+              <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+              <h5><i class="icon fas fa-exclamation-triangle"></i>Terima Kasih</h5>
+              Anda berhasil mendaftar, silakan login
             </div>
         <?php }
         } ?>
