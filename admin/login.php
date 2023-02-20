@@ -25,10 +25,33 @@
         <div class="card">
             <div class="card-body login-card-body">
                 <p class="login-box-msg">Halaman login Petugas / Admin</p>
-
-                <form action="index.php" method="post">
+                <hr>
+                <?php
+                if (isset($_GET['info'])) {
+                    if ($_GET['info'] == "gagal") { ?>
+                        <div class="alert alert-warning alert-dismissible">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                            <h5><i class="icon fas fa-exclamation-triangle"></i>Mohon Maaf</h5>
+                            Login gagal! Username atau password salah!
+                        </div>
+                    <?php } elseif ($_GET['info'] == "logout") { ?>
+                        <div class="alert alert-success alert-dismissible">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                            <h5><i class="icon fas fa-exclamation-triangle"></i>Terimakasih</h5>
+                            Anda telah berhasil logout
+                        </div>
+                    <?php }
+                        if ($_GET['info'] == "login") { ?>
+                        <div class="alert alert-info alert-dismissible">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                            <h5><i class="icon fas fa-exclamation-triangle"></i>Mohon Maaf</h5>
+                            Anda harus login terlebih dahulu
+                        </div>
+                <?php }
+                } ?>
+                <form action="cek_login.php" method="post">
                     <div class="input-group mb-3">
-                        <input type="text" class="form-control" placeholder="Username">
+                        <input type="text" name="username" class="form-control" placeholder="Username">
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-user"></span>
@@ -36,7 +59,7 @@
                         </div>
                     </div>
                     <div class="input-group mb-3">
-                        <input type="password" class="form-control" placeholder="Password">
+                        <input type="password" name="password" class="form-control" placeholder="Password">
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-lock"></span>
@@ -45,7 +68,7 @@
                     </div>
                     <div class="row">
                         <div class="col-8">
-                            <a href="admin/registrasi.php" type="submit" class="btn btn-primary btn-block">Daftar Admin</a>
+                            <a href="registrasi.php" type="submit" class="btn btn-primary btn-block">Daftar Admin</a>
                         </div>
                         <div class="col-4">
                             <button type="submit" class="btn btn-primary btn-block">Login</button>
