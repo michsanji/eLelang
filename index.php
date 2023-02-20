@@ -1,68 +1,103 @@
-
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8">
   <title>My eLelang</title>
+  <link rel="stylesheet" href="assets/landingpage/style.css">
 
-  <!-- Google Font: Source Sans Pro -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="assets/plugins/fontawesome-free/css/all.min.css">
-  <!-- icheck bootstrap -->
-  <link rel="stylesheet" href="assets/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
-  <!-- Theme style -->
-  <link rel="stylesheet" href="assets/dist/css/adminlte.min.css">
 </head>
-<body class="hold-transition login-page">
-<div class="login-box">
-  <div class="login-logo">
-    <a href="assets/index2.html">My <b>eLelang</b></a>
-  </div>
-  <!-- /.login-logo -->
-  <div class="card">
-    <div class="card-body login-card-body">
-      <p class="login-box-msg">Silakan login terlebih dahulu</p>
 
-      <form action="user/index.php" method="post">
-        <div class="input-group mb-3">
-          <input type="text" class="form-control" placeholder="Username">
-          <div class="input-group-append">
-            <div class="input-group-text">
-              <span class="fas fa-envelope"></span>
-            </div>
-          </div>
-        </div>
-        <div class="input-group mb-3">
-          <input type="password" class="form-control" placeholder="Password">
-          <div class="input-group-append">
-            <div class="input-group-text">
-              <span class="fas fa-lock"></span>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-8">
-            <a href="user/registrasi.php" type="submit" class="btn btn-primary btn-block">Daftar Masyarakat</a>
-          </div>
-          <div class="col-4">
-            <button type="submit" class="btn btn-primary btn-block">Login User</button>
-          </div>
-          <!-- /.col -->
-        </div>
-      </form>
+<body>
+  <!-- partial:index.partial.html -->
+  <div class='header'>
+    <a href='#'>About</a>
+    <a href='#'>Product</a>
+    <a href='#' class='title'>My eLelang</a>
+    <a href='user/login.php'>LOGIN</a>
+    <a href='user/registrasi.php'>REGISTER</a>
+  </div>
+
+  <div class='top'>
+    <div id='left'>
+      <a>L<br>E<br>L<br>A<br>N<br>G</a>
     </div>
-    <!-- /.login-card-body -->
+    <div id='right'>
+      <img src='https://image.flaticon.com/icons/svg/107/107789.svg'>
+      <a>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a>
+    </div>
   </div>
-</div>
-<!-- /.login-box -->
 
-<!-- jQuery -->
-<script src="assets/plugins/jquery/jquery.min.js"></script>
-<!-- Bootstrap 4 -->
-<script src="assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-<!-- AdminLTE App -->
-<script src="assets/dist/js/adminlte.min.js"></script>
+  <div class='section'>
+    <div class='image'>
+      <img src='https://image.flaticon.com/icons/svg/107/107762.svg'>
+    </div>
+    <div class='content'>
+      <a class='text'>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</a>
+      <a href='#' class='button'>Learn more</a>
+    </div>
+  </div>
+
+  <div class='section'>
+    <div class='content' style='align-items: flex-end; text-align: right;'>
+      <a class='text'>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</a>
+      <a href='#' class='button'>Learn more</a>
+    </div>
+    <div class='image'>
+      <img src='https://image.flaticon.com/icons/svg/107/107811.svg'>
+    </div>
+  </div>
+
+  <div class='features'>
+    <div id='left'>
+      <img src='https://image.flaticon.com/icons/svg/107/107757.svg'>
+    </div>
+    <div id='right'>
+      <a style='font-family: Righteous'>Posuere ac ut consequat semper.</a>
+    </div>
+  </div>
+
+  <div class='testimonials'>
+    <div class='box' style='margin-top: 0px; margin-bottom: 200px;'>
+      <a class='comment'>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</a>
+      <a class='name'>John Doe</a>
+    </div>
+    <div class='box' style='margin-top: 100px; margin-bottom: 100px;'>
+      <a class='comment'>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</a>
+      <a class='name'>John Doe</a>
+    </div>
+    <div class='box' style='margin-top: 200px; margin-bottom: 0px;'>
+      <a class='comment'>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</a>
+      <a class='name'>John Doe</a>
+    </div>
+  </div>
+
+  <div class='footer'>
+    <div id='left'>
+      <input type='text' placeholder='Search...'>
+      <a href='#'>Features</a>
+      <a href='#'>Portfolio</a>
+      <a href='#'>About</a>
+      <a href='#'>Contact</a>
+    </div>
+    <div id='center'>
+      <a class='heading'>Lorem Ipsum</a>
+      <a class='description'>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. And even more nonsense. ✌️</a>
+    </div>
+    <div id='right'>
+      <a style='margin-bottom: 10px;' id="tahun"></a>
+      <a>Written with 💜</a>
+      <a>By Ihsan 🥳 Maulana</a>
+    </div>
+  </div>
+
+  <script>
+    var date = new Date();
+    var current_date = date.getFullYear();
+    document.getElementById("tahun").innerHTML = current_date;
+  </script>
+  <script src="assets/landingpage/script.js"></script>
+
 </body>
+
 </html>

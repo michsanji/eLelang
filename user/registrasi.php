@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -62,7 +61,7 @@
         </div>
       </form>
 
-      <a href="../index.php" class="text-center">Sudah punya akun? Silakan login</a>
+      <a href="login.php" class="text-center">Sudah punya akun? Silakan login</a>
     </div>
     <!-- /.form-box -->
   </div><!-- /.card -->
