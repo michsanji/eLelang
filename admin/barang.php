@@ -104,7 +104,7 @@ include 'include/nav.php';
                                                     </div>
                                                     <form action="">
                                                         <div class="modal-body">
-                                                            <p>Apakah anda yakin ingin menghapus?</p>
+                                                            <p>Apakah anda yakin ingin menghapus data <i><font color='red'><?= $data_barang['nama_barang']; ?></font></i>?</p>
                                                         </div>
                                                         <div class="modal-footer justify-content-between">
                                                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
