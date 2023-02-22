@@ -34,6 +34,29 @@ include 'include/nav.php';
                             </div>
                         </div>
                         <div class="card-body">
+                            <?php
+                            if (isset($_GET['info'])) {
+                                if ($_GET['info'] == "hapus") { ?>
+                                    <div class="alert alert-success alert-dismissible">
+                                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                        <h5><i class="icon fas fa-exclamation-triangle"></i>Sukses</h5>
+                                        Data Telah Berhasil Dihapus
+                                    </div>
+                                <?php } elseif ($_GET['info'] == "simpan") { ?>
+                                    <div class="alert alert-success alert-dismissible">
+                                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                        <h5><i class="icon fas fa-exclamation-triangle"></i>Sukses</h5>
+                                        Data Telah Berhasil Disimpan
+                                    </div>
+                                <?php }
+                                    if ($_GET['info'] == "update") { ?>
+                                    <div class="alert alert-success alert-dismissible">
+                                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                        <h5><i class="icon fas fa-exclamation-triangle"></i>Sukses</h5>
+                                        Data Telah Berhasil Diperbaharui
+                                    </div>
+                            <?php }
+                            } ?>
                             <table class="table table-bordered">
                                 <thead>
                                     <tr>
@@ -45,85 +68,112 @@ include 'include/nav.php';
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Nama Petugas</td>
-                                        <td>Username Petugas</td>
-                                        <td>Level Petugas</td>
-                                        <td>
-                                            <button type="submit" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modal-ubah-petugas">
-                                                <i class="fas fa-edit"></i> Edit
-                                            </button>
-                                            <button type="submit" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modal-hapus-petugas">
-                                                <i class="fas fa-trash"></i> Hapus
-                                            </button>
-                                        </td>
-                                    </tr>
+                                    <?php
+
+                                    $no = 1;
+                                    include '../db/dbconnect.php';
+                                    $tb_petugas = mysqli_query($conn, "SELECT * FROM tb_petugas INNER JOIN tb_level ON tb_petugas.id_level = tb_level.id_level");
+                                    while ($data_petugas = mysqli_fetch_array($tb_petugas)) {
+
+                                        ?>
+                                        <tr>
+                                            <td><?= $no++; ?></td>
+                                            <td><?= $data_petugas['nama_petugas'] ?></td>
+                                            <td><?= $data_petugas['username'] ?></td>
+                                            <td><?= $data_petugas['level'] ?></td>
+                                            <td>
+                                                <?php if ($_SESSION['id_level'] == $data_petugas['id_level']) { ?>
+                                                    <button type="submit" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modal-ubah-petugas<?= $data_petugas['id_petugas']; ?>">
+                                                        <i class="fas fa-edit"></i> Edit
+                                                    </button>
+                                                <?php } else { ?>
+                                                    <button type="submit" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modal-ubah-petugas<?= $data_petugas['id_petugas']; ?>">
+                                                        <i class="fas fa-edit"></i> Edit
+                                                    </button>
+                                                    <button type="submit" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modal-hapus-petugas<?= $data_petugas['id_petugas']; ?>">
+                                                        <i class="fas fa-trash"></i> Hapus
+                                                    </button>
+                                                <?php } ?>
+                                            </td>
+                                        </tr>
+                                        <!-- MODAL ADD -->
+                                        <div class="modal fade" id="modal-hapus-petugas<?= $data_petugas['id_petugas']; ?>">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h4 class="modal-title">Hapus Data Petugas</h4>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <form action="hapus_petugas.php" method="post">
+                                                        <div class="modal-body">
+                                                            <p>Apakah anda yakin ingin menghapus?</p>
+                                                        </div>
+                                                        <div class="modal-footer justify-content-between">
+                                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                            <a href="hapus_petugas.php?id_petugas=<?= $data_petugas['id_petugas']; ?>" class="btn btn-primary">Hapus</a>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                                <!-- /.modal-content -->
+                                            </div>
+                                            <!-- /.modal-dialog -->
+                                        </div>
+
+                                        <div class="modal fade" id="modal-ubah-petugas<?= $data_petugas['id_petugas']; ?>">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h4 class="modal-title">Edit Data Petugas</h4>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <form action="update_petugas.php" method="post">
+                                                        <div class="modal-body">
+                                                            <div class="form-group">
+                                                                <label>Nama Petugas</label>
+                                                                <input type="text" name="id_petugas" value="<?= $data_petugas['id_petugas']; ?>" hidden>
+                                                                <input type="text" class="form-control" name="nama_petugas" value="<?= $data_petugas['nama_petugas']; ?>" placeholder="Masukan Nama Petugas">
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label>Username</label>
+                                                                <input type="text" class="form-control" name="username" value="<?= $data_petugas['username']; ?>" placeholder="Masukan Username Petugas">
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label>Password</label>
+                                                                <input type="password" class="form-control" name="password" value="<?= $data_petugas['password']; ?>" placeholder="Masukan Password Petugas">
+                                                                <i><font color='red'>* Abaikan jika tidak merubah password</font></i>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label>Level</label>
+                                                                <select class="form-control" name="id_level">
+                                                                    <option selected="true" disabled="disabled">PILIH ROLE</option>
+                                                                    <?php 
+                                                                    include '../db/dbconnect.php';
+                                                                    $tb_level = mysqli_query($conn, "SELECT * FROM tb_level");
+                                                                    while($data_level = mysqli_fetch_array($tb_level)) {
+                                                                    ?>
+                                                                    <option value="<?= $data_level['id_level'] ?>" <?php if($data_level['id_level'] == $data_petugas['id_level']) { 
+                                                                        echo 'selected'; } ?>><?= $data_level['level'] ?></option>
+                                                                    <?php } ?>
+                                                                </select>
+                                                            </div>
+                                                            <div class="modal-footer justify-content-between">
+                                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                                <button type="submit" class="btn btn-primary">Simpan</button>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                                <!-- /.modal-content -->
+                                            </div>
+                                            <!-- /.modal-dialog -->
+                                        </div>
+                                    <?php } ?>
                                 </tbody>
                             </table>
-                            <!-- MODAL ADD -->
-                            <div class="modal fade" id="modal-hapus-petugas">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h4 class="modal-title">Hapus Data Petugas</h4>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <form action="">
-                                            <div class="modal-body">
-                                                <p>Apakah anda yakin ingin menghapus?</p>
-                                            </div>
-                                            <div class="modal-footer justify-content-between">
-                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                                <button type="submit" class="btn btn-primary">Hapus</button>
-                                            </div>
-                                        </form>
-                                    </div>
-                                    <!-- /.modal-content -->
-                                </div>
-                                <!-- /.modal-dialog -->
-                            </div>
-
-                            <div class="modal fade" id="modal-ubah-petugas">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h4 class="modal-title">Edit Data Petugas</h4>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <form action="">
-                                            <div class="modal-body">
-                                                <div class="form-group">
-                                                    <label>Nama Petugas</label>
-                                                    <input type="text" class="form-control" name="nama_barang">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label>Username</label>
-                                                    <input type="text" class="form-control" name="Tanggal Barang">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label>Password</label>
-                                                    <input type="password" class="form-control" name="Harga Barang">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label>Level</label>
-                                                    <select class="form-control" name="id_level">
-                                                        <option value="">Admin</option>
-                                                        <option value="">Petugas</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </form>
-                                    </div>
-                                    <!-- /.modal-content -->
-                                </div>
-                                <!-- /.modal-dialog -->
-                            </div>
-
                             <div class="modal fade" id="modal-tambah-petugas">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
@@ -133,31 +183,32 @@ include 'include/nav.php';
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
                                         </div>
-                                        <form action="">
+                                        <form action="simpan_petugas.php" method="post">
                                             <div class="modal-body">
                                                 <div class="form-group">
                                                     <label>Nama Petugas</label>
-                                                    <input type="text" class="form-control" name="nama_barang">
+                                                    <input type="text" class="form-control" name="nama_petugas" placeholder="Masukan Nama Petugas">
                                                 </div>
                                                 <div class="form-group">
                                                     <label>Username</label>
-                                                    <input type="text" class="form-control" name="Tanggal Barang">
+                                                    <input type="text" class="form-control" name="username" placeholder="Masukan Username Petugas">
                                                 </div>
                                                 <div class="form-group">
                                                     <label>Password</label>
-                                                    <input type="password" class="form-control" name="Harga Barang">
+                                                    <input type="password" class="form-control" name="password" placeholder="Masukan Password Petugas">
                                                 </div>
                                                 <div class="form-group">
                                                     <label>Level</label>
                                                     <select class="form-control" name="id_level">
-                                                        <option value="">Admin</option>
-                                                        <option value="">Petugas</option>
+                                                        <option selected="true" disabled="disabled">PILIH ROLE</option>
+                                                        <option value="1">Admin</option>
+                                                        <option value="2">Petugas</option>
                                                     </select>
                                                 </div>
-                                            </div>
-                                            <div class="modal-footer justify-content-between">
-                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                                <button type="submit" class="btn btn-primary">Simpan</button>
+                                                <div class="modal-footer justify-content-between">
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                    <button type="submit" class="btn btn-primary">Simpan</button>
+                                                </div>
                                             </div>
                                         </form>
                                     </div>
