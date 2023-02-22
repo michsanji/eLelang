@@ -1,168 +1,221 @@
+<?php error_reporting(0); ?>
 <?php
 include 'include/header.php';
 include 'include/nav.php';
 ?>
+
+<!-- /.navbar -->
+
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-    <div class="content-header">
-        <div class="container">
-            <div class="row mb-2">
-                <div class="col-sm-6">
-                    <h1 class="m-0">Laporan Data Lelang Barang</h1>
+  <!-- Content Header (Page header) -->
+  <div class="content-header">
+    <div class="container">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1 class="m-0"> Laporan Lelang Online</h1>
+        </div><!-- /.col -->
+        <div class="col-sm-6">
+        </div><!-- /.col -->
+      </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+  </div>
+  <!-- /.content-header -->
+
+  <!-- Main content -->
+  <div class="content">
+    <div class="container">
+      <div class="row">
+        <!-- /.col-md-6 -->
+        <div class="col-lg-12">
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">Data Hasil Lelang Online</h3>
+
+              <div class="card-tools">
+                <div class="input-group input-group-sm" style="width: 150px;">
+                  <div class="input-group-append">
+                    <a href="print.php" target="blank_" class="btn btn-primary"><i class="fas fa-print"></i> Print Laporan</a>
+                  </div>
                 </div>
+              </div>
             </div>
-        </div>
-    </div>
-
-    <div class="content">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <h3 class="card-title">Data Laporan</h3>
-
-                            <div class="card-tools">
-                                <div class="input-group input-group-sm" style="width: 170px;">
-                                    <div class="input-group-append">
-                                        <a href="print.php" class="btn btn-primary" target="_blank">
-                                            <i class="fas fa-print"> Print Laporan</i>
-                                        </a>
-                                    </div>
-                                </div>
+            <div class="card-body">
+              <?php
+              if (isset($_GET['info'])) {
+                if ($_GET['info'] == "hapus") { ?>
+                  <div class="alert alert-success alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    <h5><i class="icon fas fa-trash"></i> Sukses</h5>
+                    Data berhasil di hapus
+                  </div>
+                <?php } else if ($_GET['info'] == "simpan") { ?>
+                  <div class="alert alert-success alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    <h5><i class="icon fas fa-check"></i> Sukses</h5>
+                    Data berhasil di simpan
+                  </div>
+                <?php } else if ($_GET['info'] == "update") { ?>
+                  <div class="alert alert-success alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    <h5><i class="icon fas fa-edit"></i> Sukses</h5>
+                    Data berhasil di update
+                  </div>
+              <?php }
+              } ?>
+              <table class="table table-bordered">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Nama Barang</th>
+                    <th>Tanggal Lelang</th>
+                    <th>Pemenang Lelang</th>
+                    <th>Harga Tertinggi</th>
+                    <th>Status Lelang</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <?php
+                  $no = 1;
+                  include '../db/dbconnect.php';
+                  $tb_lelang    = mysqli_query($conn, "SELECT * FROM tb_lelang INNER JOIN tb_barang ON tb_lelang.id_barang=tb_barang.id_barang INNER JOIN tb_petugas ON tb_lelang.id_petugas=tb_petugas.id_petugas ");
+                  while ($d_tb_lelang = mysqli_fetch_array($tb_lelang)) {
+                    $harga_tertinggi = mysqli_query($conn, "select max(penawaran_harga) as penawaran_harga FROM history_lelang where id_lelang='$d_tb_lelang[id_lelang]'");
+                    $harga_tertinggi = mysqli_fetch_array($harga_tertinggi);
+                    $d_harga_tertinggi = $harga_tertinggi['penawaran_harga'];
+                    $pemenang = mysqli_query($conn, "SELECT * FROM history_lelang where id_lelang='$d_tb_lelang[id_lelang]'");
+                    $d_pemenang = mysqli_fetch_array($pemenang);
+                    $tb_masyarakat = mysqli_query($conn, "SELECT * FROM tb_masyarakat where id_user='$d_pemenang[id_user]'");
+                    $d_tb_masyarakat = mysqli_fetch_array($tb_masyarakat);
+                    ?>
+                    <?php
+                      if ($d_tb_lelang['status'] == 'ditutup') { ?>
+                      <tr>
+                        <td><?php echo $no++; ?></td>
+                        <td><?= $d_tb_lelang['nama_barang'] ?></td>
+                        <td><?= $d_tb_lelang['tgl_lelang'] ?></td>
+                        <td><?= $d_tb_masyarakat['nama_lengkap'] ?></td>
+                        <td>Rp. <?= number_format($d_harga_tertinggi) ?></td>
+                        <td>
+                          <div class="btn btn-success btn-sm">Lelang Selesai</div>
+                        </td>
+                      </tr>
+                    <?php } else { ?>
+                    <?php } ?>
+                    <div class="modal fade" id="modal-buka<?php echo $d_tb_lelang['id_lelang']; ?>">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h4 class="modal-title">Aktivasi Buka Lelang</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <form method="post" action="update_lelang_buka.php">
+                            <div class="modal-body">
+                              <p>Apakah anda ingin membuka lelang...?</p>
+                              <div class="form-group">
+                                <input type="text" class="form-control" value="dibuka" name="status" hidden="">
+                                <input type="text" class="form-control" value="<?php echo $d_tb_lelang['id_lelang']; ?>" name="id_lelang" hidden="">
+                              </div>
                             </div>
+                            <div class="modal-footer justify-content-between">
+                              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                              <button type="submit" class="btn btn-primary">Simpan</button>
+                            </div>
+                          </form>
                         </div>
-                        <div class="card-body">
-                            <table class="table table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Nama Barang</th>
-                                        <th>Tanggal Lelang</th>
-                                        <th>Harga Akhir</th>
-                                        <th>Pemenang Lelang</th>
-                                        <th>Petugas Lelang</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Nama Barang</td>
-                                        <td>11-7-2022</td>
-                                        <td>Rp. 350.000</td>
-                                        <td>Nama Pemenang</td>
-                                        <td>Nama Petugas</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <!-- MODAL ADD -->
-                            <div class="modal fade" id="modal-hapus-barang">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h4 class="modal-title">Hapus Data Barang</h4>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <form action="">
-                                            <div class="modal-body">
-                                                <p>Apakah anda yakin ingin menghapus?</p>
-                                            </div>
-                                            <div class="modal-footer justify-content-between">
-                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                                <button type="submit" class="btn btn-primary">Hapus</button>
-                                            </div>
-                                        </form>
-                                    </div>
-                                    <!-- /.modal-content -->
-                                </div>
-                                <!-- /.modal-dialog -->
-                            </div>
-
-                            <div class="modal fade" id="modal-ubah-barang">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h4 class="modal-title">Edit Data Barang</h4>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <form action="">
-                                            <div class="modal-body">
-                                                <div class="form-group">
-                                                    <label>Nama Barang</label>
-                                                    <input type="text" class="form-control" name="nama_barang">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label>Tanggal Barang</label>
-                                                    <input type="date" class="form-control" name="Tanggal Barang">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label>Harga Barang</label>
-                                                    <input type="number" class="form-control" name="Harga Barang">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label>Deskripsi Barang</label>
-                                                    <textarea name="deskripsi_barang" class="form-control" rows="3"></textarea>
-                                                </div>
-                                            </div>
-                                            <div class="modal-footer justify-content-between">
-                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                                <button type="submit" class="btn btn-primary">Update</button>
-                                            </div>
-                                        </form>
-                                    </div>
-                                    <!-- /.modal-content -->
-                                </div>
-                                <!-- /.modal-dialog -->
-                            </div>
-
-                            <div class="modal fade" id="modal-tambah-barang">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h4 class="modal-title">Tambah Data Barang</h4>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <form action="">
-                                            <div class="modal-body">
-                                                <div class="form-group">
-                                                    <label>Nama Barang</label>
-                                                    <input type="text" class="form-control" name="nama_barang">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label>Tanggal Barang</label>
-                                                    <input type="date" class="form-control" name="Tanggal Barang">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label>Harga Barang</label>
-                                                    <input type="number" class="form-control" name="Harga Barang">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label>Deskripsi Barang</label>
-                                                    <textarea name="deskripsi_barang" class="form-control" rows="3"></textarea>
-                                                </div>
-                                            </div>
-                                            <div class="modal-footer justify-content-between">
-                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                                <button type="submit" class="btn btn-primary">Simpan</button>
-                                            </div>
-                                        </form>
-                                    </div>
-                                    <!-- /.modal-content -->
-                                </div>
-                                <!-- /.modal-dialog -->
-                            </div>
-                        </div>
+                        <!-- /.modal-content -->
+                      </div>
+                      <!-- /.modal-dialog -->
                     </div>
+
+                    <div class="modal fade" id="modal-tutup<?php echo $d_tb_lelang['id_lelang']; ?>">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h4 class="modal-title">Aktivasi Tutup Lelang</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <form method="post" action="update_lelang_tutup.php">
+                            <div class="modal-body">
+                              <p>Apakah anda ingin menutup lelang...?</p>
+                              <div class="form-group">
+                                <input type="text" class="form-control" value="ditutup" name="status" hidden="">
+                                <input type="text" class="form-control" value="<?php echo $d_tb_lelang['id_lelang']; ?>" name="id_lelang" hidden="">
+                              </div>
+                            </div>
+                            <div class="modal-footer justify-content-between">
+                              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                              <button type="submit" class="btn btn-primary">Simpan</button>
+                            </div>
+                          </form>
+                        </div>
+                        <!-- /.modal-content -->
+                      </div>
+                      <!-- /.modal-dialog -->
+                    </div>
+
+                  <?php } ?>
+                </tbody>
+              </table>
+              <div class="modal fade" id="modal-tambah">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h4 class="modal-title">Tambah Data Lelang</h4>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <form method="post" action="simpan_lelang.php">
+                      <div class="modal-body">
+                        <div class="form-group">
+                          <label>Nama Barang</label>
+                          <select name="id_barang" class="form-control select2" style="width: 100%;">
+                            <option disabled selected>--- Pilih Barang ---</option>
+                            <?php
+                            include '../db/dbconnect.php';
+                            $tb_barang    = mysqli_query($conn, "SELECT * FROM tb_barang");
+                            while ($d_tb_barang = mysqli_fetch_array($tb_barang)) {
+                              ?>
+                              <option value="<?php echo $d_tb_barang['id_barang']; ?>"><?php echo $d_tb_barang['nama_barang']; ?></option>
+                            <?php } ?>
+                          </select>
+                        </div>
+                        <div class="form-group">
+                          <?php
+                          include '../db/dbconnect.php';
+                          $tb_petugas    = mysqli_query($conn, "SELECT * FROM tb_petugas where username='$_SESSION[username]'");
+                          while ($d_tb_petugas = mysqli_fetch_array($tb_petugas)) {
+                            ?>
+                            <input type="text" class="form-control" value="<?php echo $d_tb_petugas['id_petugas']; ?>" name="id_petugas" hidden>
+                          <?php } ?>
+                        </div>
+                      </div>
+                      <div class="modal-footer justify-content-between">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Simpan</button>
+                      </div>
+                    </form>
+                  </div>
+                  <!-- /.modal-content -->
                 </div>
+                <!-- /.modal-dialog -->
+              </div>
             </div>
+          </div>
         </div>
-    </div>
+        <!-- /.col-md-6 -->
+      </div>
+      <!-- /.row -->
+    </div><!-- /.container-fluid -->
+  </div>
+  <!-- /.content -->
 </div>
-<?php include 'include/footer.php' ?>
+<!-- /.content-wrapper -->
+<?php
+include 'include/footer.php';
+?>

@@ -1,11 +1,16 @@
-<?php
+<?php 
+// koneksi database
 include '../db/dbconnect.php';
 
+// menangkap data yang di kirim dari form
 $id_barang = $_POST['id_barang'];
-$tgl_lelang = date(Y-m-d);
+$tgl_lelang = date('Y-m-d');
 $id_petugas = $_POST['id_petugas'];
-$deskripsi_barang = $_POST['deskripsi_barang'];
 
-mysqli_query($conn,"INSERT INTO tb_lelang VALUES('', '$id_barang', '$tgl_lelang', '', '', '$id_petugas', '')");
+// menginput data ke database
+mysqli_query($conn,"insert into tb_lelang values('','$id_barang','$tgl_lelang','','','$id_petugas','')");
 
-header('location:aktivasi.php?info=simpan');
+// mengalihkan halaman kembali ke index.php
+header("location:aktivasi.php?info=simpan");
+
+?>
