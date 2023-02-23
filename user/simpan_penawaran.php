@@ -13,5 +13,3 @@ mysqli_query($conn,"insert into history_lelang values('','$id_lelang','$id_baran
 
 // mengalihkan halaman kembali ke index.php
 header("location:penawaran.php?info=simpan");
-
-?>

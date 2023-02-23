@@ -10,5 +10,3 @@ mysqli_query($conn,"update history_lelang set penawaran_harga='$penawaran_harga'
 
 // mengalihkan halaman kembali ke index.php
 header("location:penawaran.php?info=update");
-
-?>
