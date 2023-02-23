@@ -46,7 +46,7 @@
               <h5><i class="icon fas fa-exclamation-triangle"></i>Mohon Maaf</h5>
               Anda harus login terlebih dahulu
             </div>
-            <?php } elseif ($_GET['info'] == "daftar") { ?>
+          <?php } elseif ($_GET['info'] == "daftar") { ?>
             <div class="alert alert-success alert-dismissible">
               <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
               <h5><i class="icon fas fa-exclamation-triangle"></i>Terima Kasih</h5>
