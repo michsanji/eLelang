@@ -27,7 +27,7 @@ include 'include/nav.php';
     <div class="container">
       <div class="row">
         <!-- /.col-md-6 -->
-        <div class="col-lg-12">
+        <div class="col-lg-19">
           <div class="card">
             <div class="card-header">
               <h3 class="card-title">Data Barang</h3>
@@ -72,7 +72,7 @@ include 'include/nav.php';
                       <th>Tanggal Barang</th>
                       <th>Harga Barang</th>
                       <th>Deskripsi Barang</th>
-                      <th>Aksi</th>
+                      <th class="col-lg-2">Aksi</th>
                     </tr>
                   </thead>
                   <tbody>
